@@ -1,6 +1,6 @@
 # Think-Inc OpenCode Plugin
 
-[![npm version](https://badge.fury.io/js/@whpthomas%2Fthink-inc.svg)](https://www.npmjs.com/package/@whpthomas/think-inc)
+[![npm version](https://badge.fury.io/js/think-inc.svg)](https://www.npmjs.com/package/think-inc)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## What Is This?
@@ -29,7 +29,7 @@ The plugin works in three stages:
 ### Installation
 
 ```bash
-npm install @whpthomas/think-inc
+npm install think-inc
 ```
 
 ### Usage
@@ -38,7 +38,7 @@ Create a plugin configuration file in your `.opencode/plugins/` directory:
 
 ```javascript
 // .opencode/plugins/think-inc.js
-import thinkIncPlugin from '@whpthomas/think-inc';
+import thinkIncPlugin from 'think-inc';
 export default thinkIncPlugin;
 ```
 
