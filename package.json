@@ -1,6 +1,6 @@
 {
   "name": "think-inc",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "OpenCode plugin that displays LLM reasoning traces in conversations",
   "type": "module",
   "main": "dist/index.js",
