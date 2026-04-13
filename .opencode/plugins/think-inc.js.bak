@@ -1,0 +1,2 @@
+import thinkIncPlugin from '@whpthomas/think-inc';
+export default thinkIncPlugin;

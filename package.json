@@ -1,0 +1,44 @@
+{
+  "name": "@me.henri.net/think-inc",
+  "version": "0.1.0",
+  "description": "OpenCode plugin that displays LLM reasoning traces in conversations",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "keywords": [
+    "opencode",
+    "plugin",
+    "reasoning",
+    "llm",
+    "think-inc"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whpthomas/think-inc.git"
+  },
+  "author": "whpthomas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/whpthomas/think-inc/issues"
+  },
+  "homepage": "https://github.com/whpthomas/think-inc#readme",
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target node --minify",
+    "dev": "bun build src/index.ts --outdir dist --target node --watch",
+    "clean": "rm -rf dist",
+    "test": "bun test",
+    "prepublishOnly": "bun run build"
+  },
+  "peerDependencies": {
+    "@opencode-ai/plugin": "^1.4.0",
+    "@opencode-ai/sdk": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "bun-types": "^1.1.0",
+    "typescript": "^5.4.5"
+  }
+}
