@@ -1,5 +1,5 @@
 {
-  "name": "@me.henri.net/think-inc",
+  "name": "think-inc",
   "version": "0.1.0",
   "description": "OpenCode plugin that displays LLM reasoning traces in conversations",
   "type": "module",
