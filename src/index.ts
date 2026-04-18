@@ -87,16 +87,23 @@ export const thoughtsIncPlugin: Plugin = async (_input: PluginInput): Promise<Ho
     'experimental.chat.messages.transform': async (_input, output) => {
       log(`[TRANSFORM] Processing ${output.messages.length} messages`);
 
+      // Get sessionID once from the first message - same session for all messages in this transform
+      const sessionID = output.messages[0]?.info?.sessionID;
+      if (!sessionID) {
+        log('[TRANSFORM] No sessionID available');
+        return output;
+      }
+
+      const store = sessionStores.get(sessionID);
+      if (!store) {
+        log(`[TRANSFORM] No store for session ${sessionID}`);
+        return output;
+      }
+
       // Iterate backwards from most recent message
       for (let i = output.messages.length - 1; i >= 0; i--) {
         const msg = output.messages[i];
         const messageID = msg.info.id;
-        const sessionID = msg.info.sessionID;
-
-        const store = sessionStores.get(sessionID);
-        if (!store) {
-          continue;
-        }
 
         if (!store.reasoning.has(messageID)) {
           continue;
@@ -117,7 +124,7 @@ export const thoughtsIncPlugin: Plugin = async (_input: PluginInput): Promise<Ho
           // This works even for tool-only messages that have no existing text parts
           const reasoningPart: any = {
             type: 'text',
-            text: `<reasoning>\n${combinedReasoning}\n</reasoning>`,
+            text: `Reasoning: ${combinedReasoning}\n\n---\n`,
             synthetic: true,
             id: `reasoning-${messageID}`,
             sessionID: sessionID,
@@ -132,17 +139,15 @@ export const thoughtsIncPlugin: Plugin = async (_input: PluginInput): Promise<Ho
         store.complete.add(messageID);
         store.reasoning.delete(messageID);
 
-        // Cleanup: remove sessions with no pending reasoning
-        for (const [sessionID, store] of sessionStores) {
-          if (store.reasoning.size === 0 && store.complete.size > 0) {
-            sessionStores.delete(sessionID);
-            log(`[CLEANUP] Session ${sessionID} cleaned up`);
-            await flush();
-          }
-        }
-
         // Stop after first injection - newer messages processed first
         break;
+      }
+
+      // Cleanup: remove sessions with no pending reasoning (outside the loop)
+      if (store.reasoning.size === 0 && store.complete.size > 0) {
+        sessionStores.delete(sessionID);
+        log(`[CLEANUP] Session ${sessionID} cleaned up`);
+        await flush();
       }
 
       return output;

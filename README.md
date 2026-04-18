@@ -26,20 +26,14 @@ The plugin works in three stages:
 
 ## Quick Start
 
-### Installation
+## Installation
 
-```bash
-npm install think-inc
-```
+Add to your `opencode.json`:
 
-### Usage
-
-Create a plugin configuration file in your `.opencode/plugins/` directory:
-
-```javascript
-// .opencode/plugins/think-inc.js
-import thinkIncPlugin from 'think-inc';
-export default thinkIncPlugin;
+```json
+{
+  "plugin": ["think-inc"]
+}
 ```
 
 ### AGENTS.md
@@ -61,9 +55,9 @@ The Think-Inc OpenCode plugin is providing thinking traces inside `<reasoning>` 
 
 ## License
 
-MIT License - see LICENSE file for details
+MIT
 
 ## Authors
 
 - [@whpthomas](https://github.com/whpthomas) - Concept, logic and troubleshooting
-- Qwen3.5 122B hybrid int4fp8 - Research and coding
+- Qwen3.5 122B A10B int4 AutoRound ~ DGX Spark - Research and coding
